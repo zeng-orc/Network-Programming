@@ -1,0 +1,5 @@
+client
+server
+Makefile
+.clang-format
+.gitlab-ci.yml
