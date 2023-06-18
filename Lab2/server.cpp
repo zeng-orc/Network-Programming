@@ -98,9 +98,11 @@ int main(int argc, char* argv[]) {
 
     memset(qname, 0, SIZE);
     decompress(recv_message, offset, &qname_len);
-    memcpy(qname, recv_message + offset, sizeof(QUESTION));
+    memcpy(qname, recv_message + offset, qname_len);
+    offset += qname_len;
+    memcpy(&question, recv_message + offset, sizeof(QUESTION));
 
-    if (ntohs(question.qclass) != 1) {
+    if (ntohs(question.qtype) != 1) {
       printf("Type=%d\n", ntohs(question.qtype));
       fprintf(stderr,
               "A packet of type A is expected, another type is received.\n");
